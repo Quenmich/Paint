@@ -2,21 +2,17 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
-//import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.EOFException;
 import java.util.ArrayList;
 
 public class Drawing extends JPanel implements MouseListener, MouseMotionListener{
     public Color c;
     public ArrayList<Figure> list= new ArrayList<>();
-    public ArrayList<Figure> listD= new ArrayList<>();
     public int x;
     public int y;
     public String nameFigure;
     public Point Origin;
     public Point End;
-    public Point Current;
 
 
     public Drawing() {
@@ -39,48 +35,9 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     }
 
     public void mouseDragged(MouseEvent cu) {
-        Current = new Point(cu.getX(), cu.getY());
-        int widthD = Math.abs(Current.getX() - Origin.getX());
-        int heightD = Math.abs(Current.getY() - Origin.getY());
-
-        if (Current.getX() < Origin.getX()) {
-            if (Current.getY() > Origin.getY()) {
-                Origin = new Point(Current.getX(), Origin.getY()); // Changement du point d'origine
-            } else {
-                Origin = Current;
-            }
-        }
-
-        if ((Current.getX() > Origin.getX()) && (Current.getY() < Origin.getY())) {
-            Origin = new Point(Origin.getX(), Current.getY()); // Changement du point d'origine
-        }
-
-        if (nameFigure == "Rectangle"){
-            Rectangle rectangle = new Rectangle(widthD,heightD,c,Origin);
-            listD.add(rectangle);
-        }
-
-        if (nameFigure == "Square") {
-            Square square = new Square(widthD,c,Origin);
-            listD.add(square);
-        }
-
-        if (nameFigure == "Ellipse") {
-            Ellipse ellipse = new Ellipse(widthD,heightD,c,Origin);
-            listD.add(ellipse);
-        }
-
-        if (nameFigure == "Circle") {
-            Circle circle = new Circle(widthD,c,Origin);
-            listD.add(circle);
-        }
-
-        paintComponentDrag(this.getGraphics());
-
     }
 
     public void mouseMoved(MouseEvent e) {
-
     }
     @Override
     public void mousePressed(MouseEvent o) {
@@ -105,23 +62,23 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
         }
 
         if (nameFigure=="Rectangle"){
-            Rectangle rectangle = new Rectangle(width,height,c,Origin);
-            list.add(rectangle);
+            Rectangle re = new Rectangle(width,height,c,Origin);
+            list.add(re);
         }
 
         if (nameFigure == "Square") {
-            Square square = new Square(width,c,Origin);
-            list.add(square);
+            Square sq = new Square(width,c,Origin);
+            list.add(sq);
         }
 
         if (nameFigure == "Ellipse") {
-            Ellipse ellipse = new Ellipse(width,height,c,Origin);
-            list.add(ellipse);
+            Ellipse el = new Ellipse(width,height,c,Origin);
+            list.add(el);
         }
 
         if (nameFigure == "Circle") {
-            Circle circle = new Circle(width,c,Origin);
-            list.add(circle);
+            Circle ci = new Circle(width,c,Origin);
+            list.add(ci);
         }
         paintComponent(this.getGraphics());
 
@@ -140,16 +97,10 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
             list.get(i).draw(g);
         }
     }
-    public void paintComponentDrag(Graphics g) {
-        super.paintComponent(g);
-        for (int i = 0; i < listD.size(); i++) {
-            listD.get(listD.size()-1).draw(g);
-            list.get(i).draw(g);
-        }
-    }
-    public void recallDrawing(ArrayList<Figure> list2){
+
+    public void recallDrawing(ArrayList<Figure> listOpen){
         this.list.clear();
-        list=list2;
+        list=listOpen;
         paintComponent(this.getGraphics());
     }
     public void reset(){

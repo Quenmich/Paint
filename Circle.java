@@ -16,11 +16,11 @@ public class Circle extends Ellipse{
         this.widthBB=heightBB;
     }
 
-    public void setSemiAxisX(int width) {
-        this.width = width;
+    public void setSemiAxisX(int semiAxysX) {
+        this.semiAxysX = semiAxysX;
     }
-    public void setSemiAxisY(int height) {
-        this.height = height;
+    public void setSemiAxisY(int semiAxysY) {
+        this.semiAxysY = semiAxysY;
     }
 
     @Override

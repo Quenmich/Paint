@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.*;
 
 public class Ellipse extends Figure{
-    public int width=0;
-    public int height=0;
     public int widthBB;
     public int heightBB;
+    protected int semiAxysX;
+    protected int semiAxysY;
 
     public Ellipse (int px, int py, Color c){
         super(c, new Point(4,8));
@@ -21,30 +21,30 @@ public class Ellipse extends Figure{
         this.origin=p;
 
     }
-    public void setBoundingBox (int heightBB, int widthBB){
-        this.heightBB=heightBB;
-        this.widthBB=widthBB;
-    }
-
-    public void setSemiAxisX(int width) {
-        this.width = width;
-    }
-    public void setSemiAxisY(int height) {
-        this.height = height;
-    }
-
     public void getPerimeter(){
     }
     public void getSurface(){
     }
 
+    public void setBoundingBox (int heightBB, int widthBB){
+        this.heightBB=heightBB;
+        this.widthBB=widthBB;
+    }
+
+    public void setSemiAxisX(int semiAxysX) {
+        this.semiAxysX = semiAxysX;
+    }
+    public void setSemiAxisY(int semiAxysY) {
+        this.semiAxysY = semiAxysY;
+    }
+
     @Override
     public String toString() {
-        return "("+width+","+height+","+color+")";}
+        return "("+semiAxysX+","+semiAxysY+","+color+")";}
 
     @Override
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillOval(origin.getX(),origin.getY(),width,height);
+        g.fillOval(origin.getX(),origin.getY(),semiAxysX,semiAxysY);
     }
 }

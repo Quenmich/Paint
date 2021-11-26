@@ -9,6 +9,12 @@ public abstract class Figure implements Serializable {
         this.color = c;
         this.origin = p;
     }
+
+    public void getPerimeter(){
+    }
+    public void getSurface(){
+    }
+
     public Figure(Color c) {   //Constructeur
         this.color = c;
     }
@@ -17,10 +23,6 @@ public abstract class Figure implements Serializable {
 
     public abstract void draw (Graphics g);
 
-    public void getPerimeter(){
-    }
-    public void getSurface(){
-    }
 
     @Override
     public String toString() {

@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -27,24 +26,26 @@ public class Window extends JFrame {
             JFileChooser OpenFile = new JFileChooser("C:\\Users\\qmich\\OneDrive\\Bureau\\ENSEA\\2EME ANNEE\\Informatique\\JAVA\\IdeaProjects\\Paint\\Dessins");
             OpenFile.showOpenDialog(Open);
             try{
-                ArrayList<Figure> list2 = new ArrayList<>();
-                String nameFile = OpenFile.getSelectedFile().getAbsolutePath();
-                FileInputStream fis = new FileInputStream(nameFile);
+                ArrayList<Figure> listOpen = new ArrayList<>();
+                String fileName = OpenFile.getSelectedFile().getAbsolutePath();
+                FileInputStream fis = new FileInputStream(fileName);
                 ObjectInputStream ois = new ObjectInputStream(fis);
 
-                int nbOfFigure = ois.readInt();
-                for (int i = 0; i < nbOfFigure; i++) {
+                int totFigure = ois.readInt();
+                for (int i = 0; i < totFigure; i++) {
                     Figure figure = (Figure) ois.readObject();
-                    list2.add(figure);
+                    listOpen.add(figure);
                 }
-                System.out.println(list2);
-                drawing.recallDrawing(list2);
+                System.out.println(listOpen);
+                drawing.recallDrawing(listOpen);
                 ois.close();
             }
             catch (Exception e2){
                 e2.printStackTrace();
             }
+
         });
+
         menu1.add(Open);
 
         JMenuItem New = new JMenuItem("New"); //Nouvel Item menu New
@@ -52,20 +53,20 @@ public class Window extends JFrame {
         menu1.add(New);
 
         JMenuItem Save = new JMenuItem("Save"); //Nouvel Item menu Save
-        Save.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
+        Save.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx(), false));
         Save.addActionListener(e -> {
-            JFileChooser selectionFile = new JFileChooser("C:\\Users\\qmich\\OneDrive\\Bureau\\ENSEA\\2EME ANNEE\\Informatique\\JAVA\\IdeaProjects\\Paint\\Dessins");
-            selectionFile.showSaveDialog(Save);
+            JFileChooser save = new JFileChooser("C:\\Users\\qmich\\OneDrive\\Bureau\\ENSEA\\2EME ANNEE\\Informatique\\JAVA\\IdeaProjects\\Paint\\Dessins");
+            save.showSaveDialog(Save);
             try{
-                ArrayList<Figure> list3 = drawing.getList();
-                String nameFile = selectionFile.getSelectedFile().getAbsolutePath();
+                ArrayList<Figure> listSave;
+                listSave = drawing.getList();
+                String nameFile = save.getSelectedFile().getAbsolutePath();
                 FileOutputStream fos = new FileOutputStream(nameFile);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.write(list3.size());
-                for (int i = 0; i < list3.size(); i++) {
-                    oos.writeObject(list3.get(i));
+                oos.writeInt(listSave.size());
+                for (Figure figure : listSave) {
+                    oos.writeObject(figure);
                 }
-                System.out.println(drawing.getList());
                 oos.close();
             }
             catch (Exception e2){
@@ -166,7 +167,7 @@ public class Window extends JFrame {
         frame.setSize(x,y);
     }
 
-    public static void main (String args[]){
+    public static void main (String[] args){
         new Window("Paint",800,600);
     }
 }

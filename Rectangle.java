@@ -27,8 +27,8 @@ public class Rectangle extends Figure{
         this.widthBB=widthBB;
     }
 
-    public void setLength(int length) {
-        this.height = length;
+    public void setLength(int height) {
+        this.height = height;
     }
     public void setWidth(int width) {
         this.width = width;

@@ -1,8 +1,8 @@
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    private int X;
-    private int Y;
+    public int X;
+    public int Y;
 
     public Point() {   //Constructeur
         this.X = 0;
